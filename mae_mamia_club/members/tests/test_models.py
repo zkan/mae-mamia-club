@@ -37,3 +37,11 @@ class MemberTest(TestCase):
         self.member.mom_name = 'Ood'
 
         self.assertRaises(IntegrityError, self.member.save)
+
+    def test_add_new_member_without_birthdate_should_fail(self):
+        self.member.name = 'Nong Bee'
+        self.member.birthdate = None
+        self.member.dad_name = 'Ruk'
+        self.member.mom_name = 'Ood'
+
+        self.assertRaises(IntegrityError, self.member.save)

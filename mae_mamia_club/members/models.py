@@ -9,8 +9,8 @@ class Member(models.Model):
     )
 
     birthdate = models.DateField(
-        null=True,
-        blank=True
+        null=False,
+        blank=False
     )
 
     dad_name = models.CharField(
