@@ -61,3 +61,15 @@ class MemberTest(TestCase):
         self.member.mom_name = None
 
         self.assertRaises(IntegrityError, self.member.save)
+
+    def test_display_member_object_should_be_readable(self):
+        self.member.name = 'Nong Bee'
+        self.member.birthdate = datetime.date(2014, 12, 30)
+        self.member.dad_name = 'Ruk'
+        self.member.mom_name = 'Ood'
+        self.member.save()
+
+        self.assertEqual(
+            self.member.__unicode__(),
+            'Nong Bee'
+        )

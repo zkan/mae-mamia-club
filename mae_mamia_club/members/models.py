@@ -30,3 +30,6 @@ class Member(models.Model):
         blank=True,
         auto_now_add=True
     )
+
+    def __unicode__(self):
+        return '%s' % (self.name)
