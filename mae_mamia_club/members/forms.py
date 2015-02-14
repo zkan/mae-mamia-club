@@ -1,5 +1,7 @@
 from django import forms
 
+from .utils import get_days, get_months, get_years
+
 
 class MemberForm(forms.Form):
     name = forms.CharField(
@@ -9,22 +11,26 @@ class MemberForm(forms.Form):
             attrs={
                 'placeholder': 'Name'
             }
-        )
+        ),
+        required=True
     )
 
     birth_day = forms.ChoiceField(
         label='Birth Day',
-        choices=(('', ''), ('1', '01'), ('2', '02'))
+        choices=get_days(),
+        required=True
     )
 
     birth_month = forms.ChoiceField(
         label='Birth Month',
-        choices=(('', ''), ('1', '01'), ('2', '02'))
+        choices=get_months(),
+        required=True
     )
 
     birth_year = forms.ChoiceField(
         label='Birth Year',
-        choices=(('', ''), ('2010', '2010'), ('2011', '2012'))
+        choices=get_years(),
+        required=True
     )
 
     dad_name = forms.CharField(
@@ -34,7 +40,8 @@ class MemberForm(forms.Form):
             attrs={
                 'placeholder': 'Dad Name'
             }
-        )
+        ),
+        required=True
     )
 
     mom_name = forms.CharField(
@@ -44,5 +51,6 @@ class MemberForm(forms.Form):
             attrs={
                 'placeholder': 'Mom Name'
             }
-        )
+        ),
+        required=True
     )
