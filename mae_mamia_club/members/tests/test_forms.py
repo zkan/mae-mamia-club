@@ -1,4 +1,5 @@
 import datetime
+from datetime import date
 
 from django.test import TestCase
 
@@ -118,3 +119,4 @@ class MemberFormTest(TestCase):
         self.assertEqual(member.birthdate, datetime.date(2010, 2, 1))
         self.assertEqual(member.dad_name, 'Roong')
         self.assertEqual(member.mom_name, 'Ood')
+        self.assertEqual(member.signup_date, date.today())
