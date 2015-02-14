@@ -1,5 +1,9 @@
+import datetime
+
 from django.core.urlresolvers import reverse
 from django.test import TestCase
+
+from ..models import Member
 
 
 class MemberAddViewTest(TestCase):
@@ -52,3 +56,25 @@ class MemberAddViewTest(TestCase):
         expected = '<input id="id_mom_name" maxlength="300" name="mom_name" '
         expected += 'type="text" />'
         self.assertContains(response, expected, status_code=200)
+
+    def test_add_new_member_successfully(self):
+        data = {
+            'name': 'Nong Bee',
+            'birth_day': '1',
+            'birth_month': '2',
+            'birth_year': '2010',
+            'dad_name': 'Roong',
+            'mom_name': 'Ood'
+        }
+
+        response = self.client.post(
+            reverse('member_add'),
+            data=data
+        )
+
+        member = Member.objects.get(name='Nong Bee')
+
+        self.assertEqual(member.name, 'Nong Bee')
+        self.assertEqual(member.birthdate, datetime.date(2010, 2, 1))
+        self.assertEqual(member.dad_name, 'Roong')
+        self.assertEqual(member.mom_name, 'Ood')
