@@ -7,11 +7,6 @@ class MemberForm(forms.Form):
     name = forms.CharField(
         label='Name',
         max_length=300,
-        widget=forms.TextInput(
-            attrs={
-                'placeholder': 'Name'
-            }
-        ),
         required=True
     )
 
@@ -36,21 +31,11 @@ class MemberForm(forms.Form):
     dad_name = forms.CharField(
         label='Dad Name',
         max_length=300,
-        widget=forms.TextInput(
-            attrs={
-                'placeholder': 'Dad Name'
-            }
-        ),
         required=True
     )
 
     mom_name = forms.CharField(
         label='Mom Name',
         max_length=300,
-        widget=forms.TextInput(
-            attrs={
-                'placeholder': 'Mom Name'
-            }
-        ),
         required=True
     )
