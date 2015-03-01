@@ -7,3 +7,6 @@ class Word(models.Model):
         blank=False,
         max_length=300
     )
+
+    def __unicode__(self):
+        return '%s' % (self.text)
