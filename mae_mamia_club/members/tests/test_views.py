@@ -88,6 +88,27 @@ class MemberAddViewTest(TestCase):
         self.assertEqual(member.mom_name, 'Ood')
         self.assertEqual(member.signup_date, date.today())
 
+    def test_add_new_member_should_show_member_image(self):
+        data = {
+            'name': 'Nong Bee',
+            'birth_day': '1',
+            'birth_month': '2',
+            'birth_year': '2010',
+            'dad_name': 'Roong',
+            'mom_name': 'Ood'
+        }
+
+        response = self.client.post(
+            reverse('member_add'),
+            data=data
+        )
+
+        expected = 'Image will be shown here.'
+        self.assertNotContains(response, expected, status_code=200)
+
+        expected = '<img src="/members/?id=1" width="500">'
+        self.assertContains(response, expected, status_code=200)
+
 
 class MemberViewTest(TestCase):
     def test_member_view_should_be_accessible(self):
