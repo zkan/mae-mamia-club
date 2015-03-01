@@ -23,6 +23,12 @@ class MemberAddViewTest(TestCase):
     def test_member_add_view_should_have_member_form(self):
         response = self.client.get(reverse('member_add'))
 
+        expected = 'Image will be shown here.'
+        self.assertContains(response, expected, status_code=200)
+
+        expected = '<img src="/members/'
+        self.assertNotContains(response, expected, status_code=200)
+
         expected = '<form method="post">'
         self.assertContains(response, expected, status_code=200)
 

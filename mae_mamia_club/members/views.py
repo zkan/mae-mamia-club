@@ -29,13 +29,14 @@ class MemberAddView(TemplateView):
         form = self.form_class(request.POST)
 
         if form.is_valid():
-            form.save()
+            member_id = form.save()
 
         return render(
             request,
             self.template,
             {
-                'form': form
+                'form': form,
+                'member_id': member_id
             }
         )
 
