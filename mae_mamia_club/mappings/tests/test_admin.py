@@ -11,6 +11,6 @@ class WordAdminTest(TestCase):
         )
         self.client.login(username='admin', password='maemamiaclub')
 
-        response = self.client.get('/admin/words/word/')
+        response = self.client.get('/admin/mappings/word/')
 
         self.assertEqual(response.status_code, 200)
