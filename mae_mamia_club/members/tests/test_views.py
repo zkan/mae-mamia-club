@@ -5,10 +5,11 @@ from django.core.urlresolvers import reverse
 from django.test import TestCase
 
 from ..models import Member
+from mappings.models import Word
 
 
 class MemberAddViewTest(TestCase):
-    def test_member_add_view_should_be_accesiable(self):
+    def test_member_add_view_should_be_accessible(self):
         response = self.client.get(reverse('member_add'))
 
         self.assertEqual(response.status_code, 200)
@@ -80,3 +81,49 @@ class MemberAddViewTest(TestCase):
         self.assertEqual(member.dad_name, 'Roong')
         self.assertEqual(member.mom_name, 'Ood')
         self.assertEqual(member.signup_date, date.today())
+
+
+class MemberViewTest(TestCase):
+    def test_member_view_should_be_accessible(self):
+        Member.objects.create(
+            name='Nong Bee',
+            birthdate=datetime.date(2014, 12, 30),
+            dad_name='Roong',
+            mom_name='Ood'
+        )
+        Word.objects.create(
+            id=13,
+            text='Nong'
+        )
+        Word.objects.create(
+            id=14,
+            text='Born on'
+        )
+        Word.objects.create(
+            id=12,
+            text='December'
+        )
+        Word.objects.create(
+            id=15,
+            text='Dad'
+        )
+        Word.objects.create(
+            id=16,
+            text='Mom'
+        )
+        Word.objects.create(
+            id=17,
+            text='Member No.'
+        )
+        response = self.client.get(reverse('member') + '?id=1')
+
+        self.assertEqual(response.status_code, 200)
+
+    def test_member_view_should_raise_page_not_found_error_if_no_id(self):
+        response = self.client.get(reverse('member') + '?id=1')
+
+        self.assertEqual(response.status_code, 404)
+
+        response = self.client.get(reverse('member'))
+
+        self.assertEqual(response.status_code, 404)
