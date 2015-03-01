@@ -120,3 +120,22 @@ class MemberFormTest(TestCase):
         self.assertEqual(member.dad_name, 'Roong')
         self.assertEqual(member.mom_name, 'Ood')
         self.assertEqual(member.signup_date, date.today())
+
+    def test_save_form_successfully_should_return_member_id(self):
+        data = {
+            'name': 'Nong Bee',
+            'birth_day': '1',
+            'birth_month': '2',
+            'birth_year': '2010',
+            'dad_name': 'Roong',
+            'mom_name': 'Ood'
+        }
+
+        form = MemberForm(data=data)
+        form.is_valid()
+        member_id = form.save()
+
+        self.assertTrue(member_id)
+
+        expected = 1
+        self.assertEqual(member_id, expected)

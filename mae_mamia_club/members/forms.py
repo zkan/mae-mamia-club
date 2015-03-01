@@ -56,3 +56,5 @@ class MemberForm(forms.Form):
         member.dad_name = data['dad_name']
         member.mom_name = data['mom_name']
         member.save()
+
+        return member.id
