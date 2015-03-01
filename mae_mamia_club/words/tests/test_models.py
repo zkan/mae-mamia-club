@@ -28,7 +28,7 @@ class WordTest(TestCase):
         self.assertRaises(IntegrityError, self.word.save)
 
     def test_display_word_object_should_be_readable(self):
-        self.word.text = 'Member No .'
+        self.word.text = 'Member No. '
         self.word.save()
 
         self.assertEqual(
