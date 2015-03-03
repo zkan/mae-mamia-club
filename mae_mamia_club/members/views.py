@@ -26,7 +26,7 @@ class MemberAddView(TemplateView):
         )
 
     def post(self, request):
-        form = self.form_class(request.POST)
+        form = self.form_class(request.POST, request.FILES)
 
         if form.is_valid():
             member_id = form.save()
@@ -46,22 +46,26 @@ class MemberView(TemplateView):
         member_id = request.GET.get('id')
 
         try:
+            print request.GET
             member = Member.objects.get(id=member_id)
         except ObjectDoesNotExist:
             raise Http404
 
-        background = Image.open('48G.jpg')
-        foreground = Image.open('marble.png')
-        background.paste(foreground, (250, 230), foreground)
+        if member.gender == 'g':
+            foreground = Image.open('girl.png')
+        else:
+            foreground = Image.open('boy.png')
+        background = Image.open('P3010313.png')
+        background.paste(foreground, (0, 0), foreground)
 
         # Name
-        prefix_name = Word.objects.get(id=13).text
+        prefix_name = Word.objects.get(id=17).text
         draw = ImageDraw.Draw(background)
-        red = (255, 0, 0)
+        red = (0, 0, 0)
         #black = (0, 0, 0)
-        text_pos = (195, 555)
-        text = prefix_name + member.name
-        font = ImageFont.truetype('layijimahaniyom1.ttf', 70)
+        text_pos = (140, 510)
+        text = ' ' + prefix_name + ':    ' + member.nickname
+        font = ImageFont.truetype('layijimahaniyom1.ttf', 27)
         draw.text(text_pos, text, fill=red, font=font)
         del draw
 
@@ -72,36 +76,49 @@ class MemberView(TemplateView):
         year = str(member.birthdate.year)
 
         draw = ImageDraw.Draw(background)
-        red = (255, 0, 0)
+        red = (0, 0, 0)
         #black = (0, 0, 0)
-        text_pos = (150, 610)
-        text = born_text + ' ' + day + ' ' + month + ' ' + year
-        font = ImageFont.truetype('layijimahaniyom1.ttf', 50)
+        text_pos = (138, 532)
+        text = born_text + ':   ' + ' ' + day + ' ' + month + ' ' + year
+        font = ImageFont.truetype('layijimahaniyom1.ttf', 27)
         draw.text(text_pos, text, fill=red, font=font)
         del draw
 
         # Dad and Mom
-        prefix_dad_name = Word.objects.get(id=15).text
+        prefix_parent = Word.objects.get(id=18).text
+        prefix_dad_name = Word.objects.get(id=13).text
         prefix_mom_name = Word.objects.get(id=16).text
 
         draw = ImageDraw.Draw(background)
-        red = (255, 0, 0)
+        red = (0, 0, 0)
         #black = (0, 0, 0)
-        text_pos = (230, 655)
-        text = prefix_dad_name + member.dad_name + ' ' + prefix_mom_name + member.mom_name
-        font = ImageFont.truetype('layijimahaniyom1.ttf', 35)
+        text_pos = (126, 557)
+        text = prefix_parent + ':    ' + prefix_dad_name + member.dad_name + ' ' + prefix_mom_name + member.mom_name + " "
+        font = ImageFont.truetype('layijimahaniyom1.ttf', 27)
         draw.text(text_pos, text, fill=red, font=font)
         del draw
 
         # Member Number
-        prefix_member_number = Word.objects.get(id=17).text
+        #prefix_member_number = Word.objects.get(id=17).text
 
         draw = ImageDraw.Draw(background)
-        red = (255, 0, 0)
+        white = (255, 255, 255)
         #black = (0, 0, 0)
-        text_pos = (235, 690)
-        text = prefix_member_number + ' ' + str(member.id)
-        font = ImageFont.truetype('layijimahaniyom1.ttf', 50)
+        text_pos = (375, 380)
+        #text = prefix_member_number + ' ' + str(member.id)
+        text = '000' + str(member.id)
+        font = ImageFont.truetype('layijimahaniyom1.ttf', 40)
+        draw.text(text_pos, text, fill=white, font=font)
+        del draw
+
+        # branch
+        prefix_branch = Word.objects.get(id=19).text
+        draw = ImageDraw.Draw(background)
+        red = (0, 0, 0)
+        #black = (0, 0, 0)
+        text_pos = (123, 580)
+        text = ' ' + prefix_branch + ':    ' + member.province
+        font = ImageFont.truetype('layijimahaniyom1.ttf', 27)
         draw.text(text_pos, text, fill=red, font=font)
         del draw
 
@@ -111,3 +128,18 @@ class MemberView(TemplateView):
         background.save(response, 'PNG')
 
         return response # and we're done!
+
+    def post(self, request):
+        form = self.form_class(request.POST)
+
+        if form.is_valid():
+            member_id = form.save()
+
+        return render(
+            request,
+            self.template,
+            {
+                'form': form,
+                'member_id': member_id
+            }
+        )

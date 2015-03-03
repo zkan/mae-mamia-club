@@ -25,19 +25,43 @@
             </div>
         </div>
         <div class="col-md-6">
-            <form method="post">
+            <form method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 <div class="row">
                     <div class="col-md-3">
-                        <label>Name:</label>
+                        <label>ชื่อเล่น:</label>
                     </div>
                     <div class="col-md-9">
-                        {{ form.name }}
+                        {{ form.nickname }}
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-3">
-                        <label>Birth Day:</label>
+                        <label>ชื่อจริง:</label>
+                    </div>
+                    <div class="col-md-9">
+                        {{ form.firstname }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>นามสกุล:</label>
+                    </div>
+                    <div class="col-md-9">
+                        {{ form.lastname }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>เพศ:</label>
+                    </div>
+                    <div class="col-md-9">
+                        {{ form.gender }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>วันเกิด:</label>
                     </div>
                     <div class="col-md-9">
                         {{ form.birth_day }}
@@ -61,7 +85,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-3">
-                        <label>Dad's Name:</label>
+                        <label>ชื่อเล่นคุณพ่อ:</label>
                     </div>
                     <div class="col-md-9">
                         {{ form.dad_name }}
@@ -69,10 +93,34 @@
                 </div>
                 <div class="row">
                     <div class="col-md-3">
-                        <label>Mom's Name:</label>
+                        <label>ชื่อเล่นคุณแม่:</label>
                     </div>
                     <div class="col-md-9">
                         {{ form.mom_name }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>ที่อยู่:</label>
+                    </div>
+                    <div class="col-md-9">
+                        {{ form.address }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>จังหวัด:</label>
+                    </div>
+                    <div class="col-md-9">
+                        {{ form.province }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>อัพโหลดรูป กว้าง 500px: </label>
+                    </div>
+                    <div class="col-md-9">
+                        <input id="id_image" type="file" class="" name="image">
                     </div>
                 </div>
                 <div class="row">

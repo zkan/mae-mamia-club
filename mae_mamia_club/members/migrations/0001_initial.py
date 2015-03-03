@@ -14,10 +14,16 @@ class Migration(migrations.Migration):
             name='Member',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('name', models.CharField(max_length=300)),
+                ('nickname', models.CharField(max_length=300)),
+                ('firstname', models.CharField(max_length=300)),
+                ('lastname', models.CharField(max_length=300)),
                 ('birthdate', models.DateField(null=True, blank=True)),
                 ('dad_name', models.CharField(max_length=300)),
                 ('mom_name', models.CharField(max_length=300)),
+                ('address', models.CharField(max_length=300)),
+                ('province', models.CharField(max_length=300)),
+                ('gender', models.CharField(max_length=300)),
+                ('image', models.ImageField(upload_to = 'kid_images/', default = 'kid_images/None/no-img.jpg')),
                 ('signup_date', models.DateField(auto_now_add=True, null=True)),
             ],
             options={
