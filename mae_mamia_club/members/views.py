@@ -5,7 +5,7 @@ from django.http import HttpResponse, Http404
 from django.shortcuts import render
 from django.views.generic import TemplateView
 
-from .forms import MemberForm
+from .forms import MemberForm, MemberGenerateImageForm
 from .models import Member
 from mappings.models import Word
 
@@ -42,11 +42,11 @@ class MemberAddView(TemplateView):
 
 
 class MemberView(TemplateView):
+
     def get(self, request):
         member_id = request.GET.get('id')
 
         try:
-            print request.GET
             member = Member.objects.get(id=member_id)
         except ObjectDoesNotExist:
             raise Http404
@@ -55,7 +55,7 @@ class MemberView(TemplateView):
             foreground = Image.open('girl.png')
         else:
             foreground = Image.open('boy.png')
-        background = Image.open('P3010313.png')
+        background = Image.open(member.image)
         background.paste(foreground, (0, 0), foreground)
 
         # Name
@@ -129,11 +129,46 @@ class MemberView(TemplateView):
 
         return response # and we're done!
 
+
     def post(self, request):
-        form = self.form_class(request.POST)
+        form = self.form_class(request.POST, request.FILES)
 
         if form.is_valid():
             member_id = form.save()
+
+        return render(
+            request,
+            self.template,
+            {
+                'form': form,
+                'member_id': member_id
+            }
+        )
+
+class MemberGenerateImage(TemplateView):
+    form_class = MemberGenerateImageForm
+    template = 'member.html'
+
+    def get(self, request, member_id):
+
+        form = self.form_class()
+
+        return render(
+            request,
+            self.template,
+            {
+                'form': form,
+                'member_id': member_id
+            }
+        )
+
+    def post(self, request, member_id):
+        form = self.form_class(request.POST, request.FILES)
+
+        if form.is_valid():
+            obj = Member.objects.get(pk=member_id)
+            obj.image = form.cleaned_data['image']
+            obj.save()
 
         return render(
             request,
