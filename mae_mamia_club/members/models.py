@@ -1,5 +1,8 @@
 from django.db import models
+from .overwritestorage import OverwriteStorage
 
+def content_file_name(instance, filename):
+    return '/'.join(['kid_images', str(instance.id) + '.png'])
 
 class Member(models.Model):
     nickname = models.CharField(
@@ -61,7 +64,7 @@ class Member(models.Model):
         auto_now_add=True
     )
 
-    image = models.ImageField(upload_to = 'kid_images/', default = 'kid_images/None/no-img.jpg')
+    image = models.ImageField(upload_to = content_file_name, storage=OverwriteStorage(), default = 'kid_images/None/no-img.jpg')
 
     def __unicode__(self):
         return '%s' % (self.nickname)
@@ -82,3 +85,11 @@ class Member(models.Model):
         self.validate_unique()
 
         super(Member, self).save(*args, **kwargs)
+
+    def path_and_rename(path):
+        def wrapper(instance, filename):
+            path = "kid_images"
+            format = instance.id + instance.file_extension
+            return os.path.join(path, format)
+
+        return wrapper
