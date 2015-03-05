@@ -56,6 +56,9 @@ class MemberView(TemplateView):
         else:
             foreground = Image.open('boy.png')
         background = Image.open(member.image)
+        #crop (left, top, right, bottom)
+        background = background.crop((0, 0, 600, 800))
+        background.info["dpi"] = (72, 72)
         background.paste(foreground, (0, 0), foreground)
 
         # Name
@@ -63,9 +66,9 @@ class MemberView(TemplateView):
         draw = ImageDraw.Draw(background)
         red = (0, 0, 0)
         #black = (0, 0, 0)
-        text_pos = (140, 510)
-        text = ' ' + prefix_name + ':    ' + member.nickname
-        font = ImageFont.truetype('layijimahaniyom1.ttf', 27)
+        text_pos = (140, 610)
+        text = ' ' + prefix_name + ':    ' + member.nickname + ' '
+        font = ImageFont.truetype('layijimahaniyom1.ttf', 35)
         draw.text(text_pos, text, fill=red, font=font)
         del draw
 
@@ -78,9 +81,9 @@ class MemberView(TemplateView):
         draw = ImageDraw.Draw(background)
         red = (0, 0, 0)
         #black = (0, 0, 0)
-        text_pos = (138, 532)
+        text_pos = (137, 640)
         text = born_text + ':   ' + ' ' + day + ' ' + month + ' ' + year
-        font = ImageFont.truetype('layijimahaniyom1.ttf', 27)
+        font = ImageFont.truetype('layijimahaniyom1.ttf', 35)
         draw.text(text_pos, text, fill=red, font=font)
         del draw
 
@@ -92,9 +95,9 @@ class MemberView(TemplateView):
         draw = ImageDraw.Draw(background)
         red = (0, 0, 0)
         #black = (0, 0, 0)
-        text_pos = (126, 557)
+        text_pos = (122, 670)
         text = prefix_parent + ':    ' + prefix_dad_name + member.dad_name + ' ' + prefix_mom_name + member.mom_name + " "
-        font = ImageFont.truetype('layijimahaniyom1.ttf', 27)
+        font = ImageFont.truetype('layijimahaniyom1.ttf', 35)
         draw.text(text_pos, text, fill=red, font=font)
         del draw
 
@@ -104,21 +107,22 @@ class MemberView(TemplateView):
         draw = ImageDraw.Draw(background)
         white = (255, 255, 255)
         #black = (0, 0, 0)
-        text_pos = (375, 380)
+        text_pos = (450, 460)
         #text = prefix_member_number + ' ' + str(member.id)
         text = '000' + str(member.id)
-        font = ImageFont.truetype('layijimahaniyom1.ttf', 40)
+        font = ImageFont.truetype('layijimahaniyom1.ttf', 50)
         draw.text(text_pos, text, fill=white, font=font)
         del draw
 
         # branch
         prefix_branch = Word.objects.get(id=19).text
+        prefix_province = Word.objects.get(id=15).text
         draw = ImageDraw.Draw(background)
         red = (0, 0, 0)
         #black = (0, 0, 0)
-        text_pos = (123, 580)
-        text = ' ' + prefix_branch + ':    ' + member.province
-        font = ImageFont.truetype('layijimahaniyom1.ttf', 27)
+        text_pos = (120, 700)
+        text = ' ' + prefix_branch + ':    ' + prefix_province + member.province + ' '
+        font = ImageFont.truetype('layijimahaniyom1.ttf', 35)
         draw.text(text_pos, text, fill=red, font=font)
         del draw
 
