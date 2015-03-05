@@ -56,9 +56,19 @@ class MemberView(TemplateView):
         else:
             foreground = Image.open('boy.png')
         background = Image.open(member.image)
+
+        
+        #crop to width = 600
+        width, height = background.size   # Get dimensions
+        basewidth = 600
+        wpercent = (basewidth / float(background.size[0]))
+        hsize = int((float(background.size[1]) * float(wpercent)))
+        background = background.resize((basewidth, hsize), Image.ANTIALIAS)
+
+        background.info["dpi"] = (72, 72)
+    
         #crop (left, top, right, bottom)
         background = background.crop((0, 0, 600, 800))
-        background.info["dpi"] = (72, 72)
         background.paste(foreground, (0, 0), foreground)
 
         # Name
@@ -101,19 +111,6 @@ class MemberView(TemplateView):
         draw.text(text_pos, text, fill=red, font=font)
         del draw
 
-        # Member Number
-        #prefix_member_number = Word.objects.get(id=17).text
-
-        draw = ImageDraw.Draw(background)
-        white = (255, 255, 255)
-        #black = (0, 0, 0)
-        text_pos = (450, 460)
-        #text = prefix_member_number + ' ' + str(member.id)
-        text = '000' + str(member.id)
-        font = ImageFont.truetype('layijimahaniyom1.ttf', 50)
-        draw.text(text_pos, text, fill=white, font=font)
-        del draw
-
         # branch
         prefix_branch = Word.objects.get(id=19).text
         prefix_province = Word.objects.get(id=15).text
@@ -124,6 +121,28 @@ class MemberView(TemplateView):
         text = ' ' + prefix_branch + ':    ' + prefix_province + member.province + ' '
         font = ImageFont.truetype('layijimahaniyom1.ttf', 35)
         draw.text(text_pos, text, fill=red, font=font)
+        del draw
+
+        # Member Number
+        #prefix_member_number = Word.objects.get(id=17).text
+
+        draw = ImageDraw.Draw(background)
+        white = (255, 255, 255)
+        #black = (0, 0, 0)
+        text_pos = (450, 460)
+        #text = prefix_member_number + ' ' + str(member.id)
+        text = '000' + str(member.id)
+        member_id = str(member.id)
+        if len(member_id) == 1 :
+            text = '000' + member_id
+        elif len(member_id) == 2 :
+            text = '00' + member_id
+        elif len(member_id) == 3 :
+            text = '0' + member_id
+        else:
+            text = member_id
+        font = ImageFont.truetype('layijimahaniyom1.ttf', 50)
+        draw.text(text_pos, text, fill=white, font=font)
         del draw
 
         response = HttpResponse(content_type='image/png')
