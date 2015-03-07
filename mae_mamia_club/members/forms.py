@@ -10,13 +10,13 @@ class MemberForm(forms.Form):
     nickname = forms.CharField(
         label='Nick Name',
         max_length=300,
-        required=True
+        required=True,
     )
 
     gender = forms.ChoiceField(
         label='Mom Name',
-        choices=(('g', 'girl'),('b', 'boy') ),
-        required=True
+        choices=(('','-----------'),('g', 'girl'),('b', 'boy') ),
+        required=True,
     )
 
     firstname = forms.CharField(
@@ -57,6 +57,12 @@ class MemberForm(forms.Form):
 
     mom_name = forms.CharField(
         label='Mom Name',
+        max_length=300,
+        required=True
+    )
+
+    facebook_account = forms.CharField(
+        label='Facebook Account',
         max_length=300,
         required=True
     )
