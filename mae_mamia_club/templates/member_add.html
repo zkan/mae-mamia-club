@@ -18,9 +18,18 @@
             <div class="row">
                 <div class="col-md-12 text-center">
                     {% if not member_id %}
-                        <br><br><br><br>
-                        *** อัพโหลด "รูปแนวตั้ง" เท่านั้น ***<br><br>
+                        <br>
+                        *** อัพโหลด "รูปแนวตั้ง" เท่านั้น รูปตัวอย่างที่ generate แล้วจะได้ตามนี้จ้า ***
+                        <br>
+                        *** หากมี id แล้ว อยากแก้ไขรูป ให้เข้าไปที่ (เช่น id=1) <a href="http://{{ request.get_host }}/members/1/">Go back home</a>***
+                        <br>
+                        <img src="/members/?id=1">
                     {% else %}
+                        <br>
+                        *** อัพโหลด "รูปแนวตั้ง" เท่านั้น รูปตัวอย่างที่ generate แล้วจะได้ตามนี้จ้า ***
+                        <br>
+                        *** หากมี id แล้ว อยากแก้ไขรูป ให้เข้าไปที่ <a href="http://{{ request.get_host }}/members/{{ member_id }}/">Go back home</a>***
+                        <br>
                         <img src="/members/?id={{ member_id }}">
                     {% endif %}
                 </div>
@@ -123,7 +132,12 @@
                         <label>อัพโหลดรูปแนวตั้ง: </label>
                     </div>
                     <div class="col-md-6">
-                        <input id="id_image" type="file" class="" name="image">
+                        <input id="id_image" type="file" class="" name="image">             
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        **เฉพาะรูปแนวตั้งเท่านั้น และแม่ๆ ต้องปรับขนาดรูป ให้พอดีกรอบจากโปรแกรมอื่นจ้า**
                     </div>
                 </div>
                 <div class="row">

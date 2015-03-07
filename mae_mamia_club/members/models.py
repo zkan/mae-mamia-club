@@ -1,5 +1,6 @@
 from django.db import models
 from .overwritestorage import OverwriteStorage
+from django.core.exceptions import ValidationError, NON_FIELD_ERRORS
 
 def content_file_name(instance, filename):
     return '/'.join(['kid_images', str(instance.id) + '.png'])
@@ -29,8 +30,8 @@ class Member(models.Model):
     )
 
     dad_name = models.CharField(
-        null=False,
-        blank=False,
+        null=True,
+        blank=True,
         max_length=300
     )
 
@@ -65,6 +66,11 @@ class Member(models.Model):
     )
 
     image = models.ImageField(upload_to = content_file_name, storage=OverwriteStorage(), default = 'kid_images/None/no-img.jpg')
+    
+    #facebook_account = models.CharField(
+    #    null=False,
+    #    blank=False,
+    #    max_length=300)
 
     def __unicode__(self):
         return '%s' % (self.nickname)

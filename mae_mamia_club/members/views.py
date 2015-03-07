@@ -30,6 +30,10 @@ class MemberAddView(TemplateView):
 
         if form.is_valid():
             member_id = form.save()
+            obj = Member.objects.get(id=member_id)
+            #obj.image = 'kid_images/'+str(member_id)+'.png'
+            obj.image.save('kid_images/'+str(member_id)+'.png', obj.image, save=True)
+        
 
         return render(
             request,
@@ -105,8 +109,12 @@ class MemberView(TemplateView):
         draw = ImageDraw.Draw(background)
         red = (0, 0, 0)
         #black = (0, 0, 0)
-        text_pos = (122, 670)
-        text = prefix_parent + ':    ' + prefix_dad_name + member.dad_name + ' ' + prefix_mom_name + member.mom_name + " "
+        if member.dad_name != '':
+            text_pos = (122, 670)
+            text = prefix_parent + ':    ' + prefix_dad_name + member.dad_name + ' ' + prefix_mom_name + member.mom_name + " "
+        else:
+            text_pos = (122, 670)
+            text = prefix_parent + ':    ' + prefix_mom_name + member.mom_name + " "
         font = ImageFont.truetype('layijimahaniyom1.ttf', 35)
         draw.text(text_pos, text, fill=red, font=font)
         del draw

@@ -24,6 +24,7 @@ class Migration(migrations.Migration):
                 ('province', models.CharField(max_length=300)),
                 ('gender', models.CharField(max_length=300)),
                 ('image', models.ImageField(upload_to = 'kid_images/', default = 'kid_images/None/no-img.jpg')),
+                ('facebook_account', models.CharField(max_length=300)),
                 ('signup_date', models.DateField(auto_now_add=True, null=True)),
             ],
             options={
