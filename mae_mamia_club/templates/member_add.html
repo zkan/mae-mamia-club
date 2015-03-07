@@ -21,14 +21,14 @@
                         <br>
                         *** อัพโหลด "รูปแนวตั้ง" เท่านั้น รูปตัวอย่างที่ generate แล้วจะได้ตามนี้จ้า ***
                         <br>
-                        *** หากมี id แล้ว อยากแก้ไขรูป ให้เข้าไปที่ (เช่น id=1) <a href="http://{{ request.get_host }}/members/1/">Go back home</a>***
+                        *** หากมี id แล้ว อยากแก้ไขรูป ให้เข้าไปที่ (เช่น id=1) <a href="http://{{ root_url }}/members/1/">http://{{ root_url }}/members/1/</a>  ***
                         <br>
                         <img src="/members/?id=1">
                     {% else %}
                         <br>
                         *** อัพโหลด "รูปแนวตั้ง" เท่านั้น รูปตัวอย่างที่ generate แล้วจะได้ตามนี้จ้า ***
                         <br>
-                        *** หากมี id แล้ว อยากแก้ไขรูป ให้เข้าไปที่ <a href="http://{{ request.get_host }}/members/{{ member_id }}/">Go back home</a>***
+                        *** หากมี id แล้ว อยากแก้ไขรูป ให้เข้าไปที่ <a href="http://{{ root_url }}/members/{{ member_id }}/">{{ root_url }}/members/{{ member_id }}/</a>***
                         <br>
                         <img src="/members/?id={{ member_id }}">
                     {% endif %}
@@ -41,7 +41,7 @@
                 {% csrf_token %}
                 <div class="row">
                     <div class="col-md-6">
-                        <label>ชื่อเล่น:</label>
+                        <label>*ชื่อเล่น:</label>
                     </div>
                     <div class="col-md-6">
                         {{ form.nickname }}
@@ -49,7 +49,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-6">
-                        <label>ชื่อจริง:</label>
+                        <label>*ชื่อจริง:</label>
                     </div>
                     <div class="col-md-6">
                         {{ form.firstname }}
@@ -57,7 +57,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-6">
-                        <label>นามสกุล:</label>
+                        <label>*นามสกุล:</label>
                     </div>
                     <div class="col-md-6">
                         {{ form.lastname }}
@@ -65,7 +65,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-6">
-                        <label>เพศ:</label>
+                        <label>*เพศ:</label>
                     </div>
                     <div class="col-md-6">
                         {{ form.gender }}
@@ -73,7 +73,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-6">
-                        <label>วันเกิด:</label>
+                        <label>*วันเกิด:</label>
                     </div>
                     <div class="col-md-6">
                         {{ form.birth_day }}
@@ -81,7 +81,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-6">
-                        <label>Birth Month:</label>
+                        <label>*เดือนเกิด:</label>
                     </div>
                     <div class="col-md-6">
                         {{ form.birth_month }}
@@ -89,7 +89,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-6">
-                        <label>Birth Year:</label>
+                        <label>*ปีเกิด:</label>
                     </div>
                     <div class="col-md-6">
                         {{ form.birth_year }}
@@ -105,7 +105,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-6">
-                        <label>ชื่อเล่นคุณแม่:</label>
+                        <label>*ชื่อเล่นคุณแม่:</label>
                     </div>
                     <div class="col-md-6">
                         {{ form.mom_name }}
@@ -113,7 +113,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-6">
-                        <label>Facebook:</label>
+                        <label>*Facebook:</label>
                     </div>
                     <div class="col-md-6">
                         {{ form.facebook_account }}
@@ -126,7 +126,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-6">
-                        <label>ที่อยู่:</label>
+                        <label>*ที่อยู่:</label>
                     </div>
                     <div class="col-md-6">
                         {{ form.address }}
@@ -134,7 +134,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-6">
-                        <label>จังหวัด:</label>
+                        <label>*จังหวัด:</label>
                     </div>
                     <div class="col-md-6">
                         {{ form.province }}
@@ -142,7 +142,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-6">
-                        <label>อัพโหลดรูปแนวตั้ง: </label>
+                        <label>*อัพโหลดรูปแนวตั้ง: </label>
                     </div>
                     <div class="col-md-6">
                         <input id="id_image" type="file" class="" name="image">             
@@ -160,6 +160,15 @@
                 </div>
             </form>
             <h5>หากสมัครสมาชิกแล้ว เปลี่ยนรูปได้ด้วยตัวเอง ที่ /members/idของม้าน้อย</h5>
+            <div class="row">
+                <b>รายชื่อม้าน้อย</b>
+                <div class="col-md-12">
+                    {% for member in members %}
+                        <a href="http://{{ root_url }}/members/{{ member.id }}/"> id: {{ member.id }} - {{ member.nickname }} ลูกพ่อ{{ member.dad_name}} แม่{{ member.mom_name}}</a> <br>
+                    {% endfor %}
+                </div>
+            </div>
+            <br><br><br>
         </div>
     </div>
 </div>

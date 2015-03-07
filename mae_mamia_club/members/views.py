@@ -21,7 +21,9 @@ class MemberAddView(TemplateView):
             request,
             self.template,
             {
-                'form': form
+                'form': form,
+                'root_url': request.get_host(),
+                'members': Member.objects.all()
             }
         )
 
@@ -38,8 +40,9 @@ class MemberAddView(TemplateView):
             request,
             self.template,
             {
-                'form': form,
-                'member_id': member_id
+                'form': self.form_class(),
+                'member_id': member_id,
+                'root_url': request.get_host(),
             }
         )
 
@@ -188,7 +191,8 @@ class MemberGenerateImage(TemplateView):
             self.template,
             {
                 'form': form,
-                'member_id': member_id
+                'member_id': member_id,
+                'root_url': request.get_host()
             }
         )
 
@@ -205,6 +209,7 @@ class MemberGenerateImage(TemplateView):
             self.template,
             {
                 'form': form,
-                'member_id': member_id
+                'member_id': member_id,
+                'root_url': request.get_host()
             }
         )
