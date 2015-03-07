@@ -31,7 +31,6 @@ class MemberAddView(TemplateView):
         if form.is_valid():
             member_id = form.save()
             obj = Member.objects.get(id=member_id)
-            #obj.image = 'kid_images/'+str(member_id)+'.png'
             obj.image.save('kid_images/'+str(member_id)+'.png', obj.image, save=True)
         
 

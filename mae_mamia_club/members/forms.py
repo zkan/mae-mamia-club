@@ -52,7 +52,7 @@ class MemberForm(forms.Form):
     dad_name = forms.CharField(
         label='Dad Name',
         max_length=300,
-        required=True
+        required=False
     )
 
     mom_name = forms.CharField(
