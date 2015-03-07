@@ -1,0 +1,135 @@
+[
+{
+  "fields": {
+    "text": "\u0e21\u0e01\u0e23\u0e32\u0e04\u0e21"
+  },
+  "model": "mappings.word",
+  "pk": 1
+},
+{
+  "fields": {
+    "text": "\u0e01\u0e38\u0e21\u0e20\u0e32\u0e1e\u0e31\u0e19\u0e18\u0e4c"
+  },
+  "model": "mappings.word",
+  "pk": 2
+},
+{
+  "fields": {
+    "text": "\u0e21\u0e35\u0e19\u0e32\u0e04\u0e21"
+  },
+  "model": "mappings.word",
+  "pk": 3
+},
+{
+  "fields": {
+    "text": "\u0e40\u0e21\u0e29\u0e32\u0e22\u0e19"
+  },
+  "model": "mappings.word",
+  "pk": 4
+},
+{
+  "fields": {
+    "text": "\u0e1e\u0e24\u0e29\u0e20\u0e32\u0e04\u0e21"
+  },
+  "model": "mappings.word",
+  "pk": 5
+},
+{
+  "fields": {
+    "text": "\u0e21\u0e34\u0e16\u0e38\u0e19\u0e32\u0e22\u0e19"
+  },
+  "model": "mappings.word",
+  "pk": 6
+},
+{
+  "fields": {
+    "text": "\u0e01\u0e23\u0e01\u0e0e\u0e32\u0e04\u0e21"
+  },
+  "model": "mappings.word",
+  "pk": 7
+},
+{
+  "fields": {
+    "text": "\u0e2a\u0e34\u0e07\u0e2b\u0e32\u0e04\u0e21"
+  },
+  "model": "mappings.word",
+  "pk": 8
+},
+{
+  "fields": {
+    "text": "\u0e01\u0e31\u0e19\u0e22\u0e32\u0e22\u0e19"
+  },
+  "model": "mappings.word",
+  "pk": 9
+},
+{
+  "fields": {
+    "text": "\u0e15\u0e38\u0e25\u0e32\u0e04\u0e21"
+  },
+  "model": "mappings.word",
+  "pk": 10
+},
+{
+  "fields": {
+    "text": "\u0e1e\u0e24\u0e28\u0e08\u0e34\u0e01\u0e32\u0e22\u0e19"
+  },
+  "model": "mappings.word",
+  "pk": 11
+},
+{
+  "fields": {
+    "text": "\u0e18\u0e31\u0e19\u0e27\u0e32\u0e04\u0e21"
+  },
+  "model": "mappings.word",
+  "pk": 12
+},
+{
+  "fields": {
+    "text": "\u0e1e\u0e48\u0e2d"
+  },
+  "model": "mappings.word",
+  "pk": 13
+},
+{
+  "fields": {
+    "text": "\u0e40\u0e01\u0e34\u0e14"
+  },
+  "model": "mappings.word",
+  "pk": 14
+},
+{
+  "fields": {
+    "text": "\u0e21\u0e49\u0e32\u0e19\u0e49\u0e2d\u0e22"
+  },
+  "model": "mappings.word",
+  "pk": 15
+},
+{
+  "fields": {
+    "text": "\u0e41\u0e21\u0e48"
+  },
+  "model": "mappings.word",
+  "pk": 16
+},
+{
+  "fields": {
+    "text": "\u0e0a\u0e37\u0e48\u0e2d"
+  },
+  "model": "mappings.word",
+  "pk": 17
+},
+{
+  "fields": {
+    "text": "\u0e2a\u0e31\u0e07\u0e01\u0e31\u0e14"
+  },
+  "model": "mappings.word",
+  "pk": 18
+},
+{
+  "fields": {
+    "text": "\u0e2a\u0e32\u0e02\u0e32"
+  },
+  "model": "mappings.word",
+  "pk": 19
+}
+]

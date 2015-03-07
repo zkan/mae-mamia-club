@@ -7,8 +7,26 @@ from .utils import get_days, get_months, get_years
 
 
 class MemberForm(forms.Form):
-    name = forms.CharField(
-        label='Name',
+    nickname = forms.CharField(
+        label='Nick Name',
+        max_length=300,
+        required=True,
+    )
+
+    gender = forms.ChoiceField(
+        label='Mom Name',
+        choices=(('','-----------'),('g', 'girl'),('b', 'boy') ),
+        required=True,
+    )
+
+    firstname = forms.CharField(
+        label='First Name',
+        max_length=300,
+        required=True
+    )
+
+    lastname = forms.CharField(
+        label='Last Name',
         max_length=300,
         required=True
     )
@@ -34,7 +52,7 @@ class MemberForm(forms.Form):
     dad_name = forms.CharField(
         label='Dad Name',
         max_length=300,
-        required=True
+        required=False
     )
 
     mom_name = forms.CharField(
@@ -42,6 +60,26 @@ class MemberForm(forms.Form):
         max_length=300,
         required=True
     )
+
+    facebook_account = forms.CharField(
+        label='Facebook Account',
+        max_length=300,
+        required=True
+    )
+
+    address = forms.CharField(
+        label='Address',
+        max_length=300,
+        required=True
+    )
+
+    province = forms.CharField(
+        label='Province',
+        max_length=300,
+        required=True
+    )
+
+    image = forms.ImageField()
 
     def save(self):
         data = self.cleaned_data
@@ -51,10 +89,42 @@ class MemberForm(forms.Form):
         year = int(data['birth_year'])
 
         member = Member()
-        member.name = data['name']
+        member.nickname = data['nickname']
+        member.firstname = data['firstname']
+        member.lastname = data['lastname']
         member.birthdate = datetime.date(year, month, day)
         member.dad_name = data['dad_name']
         member.mom_name = data['mom_name']
+        member.address = data['address']
+        member.province = data['province']
+        member.gender = data['gender']
+        member.image = data['image']
+        member.save()
+
+        return member.id
+
+class MemberGenerateImageForm(forms.Form):
+
+    image = forms.ImageField()
+
+    def save(self):
+        data = self.cleaned_data
+
+        day = int(data['birth_day'])
+        month = int(data['birth_month'])
+        year = int(data['birth_year'])
+
+        member = Member()
+        member.nickname = data['nickname']
+        member.firstname = data['firstname']
+        member.lastname = data['lastname']
+        member.birthdate = datetime.date(year, month, day)
+        member.dad_name = data['dad_name']
+        member.mom_name = data['mom_name']
+        member.address = data['address']
+        member.province = data['province']
+        member.gender = data['gender']
+        member.image = data['image']
         member.save()
 
         return member.id

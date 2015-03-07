@@ -9,70 +9,148 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12 text-center">
-            <h1>New Member Information</h1>
+            <h1>ข้อมูลสมาชิกใหม่ คลับแม่มะเมียมกรา 57</h1>
+            <h5>ตรวจสอบข้อมูลก่อนสมัคร หากผิดพลาดติดต่อแอดมินจ้า</h5>
         </div>
     </div>
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-9">
             <div class="row">
                 <div class="col-md-12 text-center">
                     {% if not member_id %}
-                        Image will be shown here.
+                        <br>
+                        *** อัพโหลด "รูปแนวตั้ง" เท่านั้น รูปตัวอย่างที่ generate แล้วจะได้ตามนี้จ้า ***
+                        <br>
+                        *** หากมี id แล้ว อยากแก้ไขรูป ให้เข้าไปที่ (เช่น id=1) <a href="http://{{ root_url }}/members/1/">http://{{ root_url }}/members/1/</a>  ***
+                        <br>
+                        <img src="/members/?id=1">
                     {% else %}
-                        <img src="/members/?id={{ member_id }}" width="500">
+                        <br>
+                        *** อัพโหลด "รูปแนวตั้ง" เท่านั้น รูปตัวอย่างที่ generate แล้วจะได้ตามนี้จ้า ***
+                        <br>
+                        *** หากมี id แล้ว อยากแก้ไขรูป ให้เข้าไปที่ <a href="http://{{ root_url }}/members/{{ member_id }}/">{{ root_url }}/members/{{ member_id }}/</a>***
+                        <br>
+                        <img src="/members/?id={{ member_id }}">
                     {% endif %}
                 </div>
             </div>
         </div>
-        <div class="col-md-6">
-            <form method="post">
+        <p>
+        <div class="col-md-3">
+            <form method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 <div class="row">
-                    <div class="col-md-3">
-                        <label>Name:</label>
+                    <div class="col-md-6">
+                        <label>*ชื่อเล่น:</label>
                     </div>
-                    <div class="col-md-9">
-                        {{ form.name }}
+                    <div class="col-md-6">
+                        {{ form.nickname }}
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-3">
-                        <label>Birth Day:</label>
+                    <div class="col-md-6">
+                        <label>*ชื่อจริง:</label>
                     </div>
-                    <div class="col-md-9">
+                    <div class="col-md-6">
+                        {{ form.firstname }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label>*นามสกุล:</label>
+                    </div>
+                    <div class="col-md-6">
+                        {{ form.lastname }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label>*เพศ:</label>
+                    </div>
+                    <div class="col-md-6">
+                        {{ form.gender }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label>*วันเกิด:</label>
+                    </div>
+                    <div class="col-md-6">
                         {{ form.birth_day }}
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-3">
-                        <label>Birth Month:</label>
+                    <div class="col-md-6">
+                        <label>*เดือนเกิด:</label>
                     </div>
-                    <div class="col-md-9">
+                    <div class="col-md-6">
                         {{ form.birth_month }}
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-3">
-                        <label>Birth Year:</label>
+                    <div class="col-md-6">
+                        <label>*ปีเกิด:</label>
                     </div>
-                    <div class="col-md-9">
+                    <div class="col-md-6">
                         {{ form.birth_year }}
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-3">
-                        <label>Dad's Name:</label>
+                    <div class="col-md-6">
+                        <label>ชื่อเล่นคุณพ่อ:</label>
                     </div>
-                    <div class="col-md-9">
+                    <div class="col-md-6">
                         {{ form.dad_name }}
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-3">
-                        <label>Mom's Name:</label>
+                    <div class="col-md-6">
+                        <label>*ชื่อเล่นคุณแม่:</label>
                     </div>
-                    <div class="col-md-9">
+                    <div class="col-md-6">
                         {{ form.mom_name }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label>*Facebook:</label>
+                    </div>
+                    <div class="col-md-6">
+                        {{ form.facebook_account }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <font size=1>ตัวอย่าง https://www.facebook.com/nattanicha</font>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label>*ที่อยู่:</label>
+                    </div>
+                    <div class="col-md-6">
+                        {{ form.address }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label>*จังหวัด:</label>
+                    </div>
+                    <div class="col-md-6">
+                        {{ form.province }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label>*อัพโหลดรูปแนวตั้ง: </label>
+                    </div>
+                    <div class="col-md-6">
+                        <input id="id_image" type="file" class="" name="image">             
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        **เฉพาะรูปแนวตั้งเท่านั้น และแม่ๆ ต้องปรับขนาดรูป ให้พอดีกรอบจากโปรแกรมอื่นจ้า**
                     </div>
                 </div>
                 <div class="row">
@@ -81,6 +159,16 @@
                     </div>
                 </div>
             </form>
+            <h5>หากสมัครสมาชิกแล้ว เปลี่ยนรูปได้ด้วยตัวเอง ที่ /members/idของม้าน้อย</h5>
+            <div class="row">
+                <b>รายชื่อม้าน้อย</b>
+                <div class="col-md-12">
+                    {% for member in members %}
+                        <a href="http://{{ root_url }}/members/{{ member.id }}/"> id: {{ member.id }} - {{ member.nickname }} ลูกพ่อ{{ member.dad_name}} แม่{{ member.mom_name}}</a> <br>
+                    {% endfor %}
+                </div>
+            </div>
+            <br><br><br>
         </div>
     </div>
 </div>

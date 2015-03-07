@@ -7,12 +7,17 @@ from members import views as member_views
 urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
     url(
-        r'^members/add/',
+        r'^members/add/$',
         member_views.MemberAddView.as_view(),
         name='member_add'
     ),
     url(
-        r'^members/',
+        r'^members/(?P<member_id>\d+)/$',
+        member_views.MemberGenerateImage.as_view(),
+        name='member_generate_image'
+    ),
+    url(
+        r'^members/$',
         member_views.MemberView.as_view(),
         name='member'
     ),
