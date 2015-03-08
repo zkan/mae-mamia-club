@@ -67,10 +67,10 @@ class Member(models.Model):
 
     image = models.ImageField(upload_to = content_file_name, storage=OverwriteStorage(), default = 'kid_images/None/no-img.jpg')
     
-    #facebook_account = models.CharField(
-    #    null=False,
-    #    blank=False,
-    #    max_length=300)
+    facebook_account = models.CharField(
+        null=False,
+        blank=False,
+        max_length=300)
 
     def __unicode__(self):
         return '%s' % (self.nickname)
