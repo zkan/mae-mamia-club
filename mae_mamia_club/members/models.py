@@ -6,6 +6,12 @@ def content_file_name(instance, filename):
     return '/'.join(['kid_images', str(instance.id) + '.png'])
 
 class Member(models.Model):
+    def validate_image(fieldfile_obj):
+        filesize = fieldfile_obj.file.size
+        megabyte_limit = 1.0
+        if filesize > megabyte_limit*1024*1024:
+            raise ValidationError("Max file size is %sMB" % str(megabyte_limit))
+            
     nickname = models.CharField(
         null=False,
         blank=False,
@@ -65,7 +71,10 @@ class Member(models.Model):
         auto_now_add=True
     )
 
-    image = models.ImageField(upload_to = content_file_name, storage=OverwriteStorage(), default = 'kid_images/None/no-img.jpg')
+    image = models.ImageField(upload_to = content_file_name, 
+        storage=OverwriteStorage(), 
+        default = 'kid_images/None/no-img.jpg',
+        validators=[validate_image])
     
     facebook_account = models.CharField(
         null=False,

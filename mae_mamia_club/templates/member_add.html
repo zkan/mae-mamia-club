@@ -28,7 +28,7 @@
                         <br>
                         *** อัพโหลด "รูปแนวตั้ง" เท่านั้น รูปตัวอย่างที่ generate แล้วจะได้ตามนี้จ้า ***
                         <br>
-                        <h5>*** copy link นี้เก็บไว้จ้าา <a href="http://{{ root_url }}/members/{{ member_id }}/">{{ root_url }}/members/{{ member_id }}/</a>***</h5>
+                        <h3>*** copy link นี้เก็บไว้จ้าา <a href="http://{{ root_url }}/members/{{ member_id }}/">{{ root_url }}/members/{{ member_id }}/</a>***</h3>
                         <br>
                         <img src="/members/?id={{ member_id }}">
                     {% endif %}
@@ -73,6 +73,14 @@
                 </div>
                 <div class="row">
                     <div class="col-md-6">
+                        <label>*วันเกิดม้าน้อย:</label>
+                    </div>
+                    <div class="col-md-6">
+                        {{ form.birthdate }}
+                    </div>
+                </div>
+                <!--div class="row">
+                    <div class="col-md-6">
                         <label>*วันเกิด:</label>
                     </div>
                     <div class="col-md-6">
@@ -94,7 +102,7 @@
                     <div class="col-md-6">
                         {{ form.birth_year }}
                     </div>
-                </div>
+                </div-->
                 <div class="row">
                     <div class="col-md-6">
                         <label>ลูกพ่อ:</label>

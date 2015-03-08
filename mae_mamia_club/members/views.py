@@ -9,6 +9,9 @@ from .forms import MemberForm, MemberGenerateImageForm
 from .models import Member
 from mappings.models import Word
 
+import StringIO
+from django.core.files.uploadedfile import InMemoryUploadedFile
+
 
 class MemberAddView(TemplateView):
     form_class = MemberForm
@@ -29,11 +32,14 @@ class MemberAddView(TemplateView):
 
     def post(self, request):
         form = self.form_class(request.POST, request.FILES)
-
-        if form.is_valid():
-            member_id = form.save()
+        #member_id = 'None'
+        if form.is_valid(): 
+            member = form.save()
+            member_id = member.id
             obj = Member.objects.get(id=member_id)
             obj.image.save('kid_images/'+str(member_id)+'.png', obj.image, save=True)
+        else:
+            raise Error("form is not valid")
         
 
         return render(
