@@ -99,6 +99,7 @@ class MemberForm(forms.Form):
         member.province = data['province']
         member.gender = data['gender']
         member.image = data['image']
+        member.facebook_account = data['facebook_account']
         member.save()
 
         return member.id
