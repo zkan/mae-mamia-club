@@ -1,5 +1,9 @@
 from PIL import Image, ImageDraw, ImageFont
 
+from django import forms
+from django.template.defaultfilters import filesizeformat
+from django.utils.translation import ugettext_lazy as _
+
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponse, Http404
 from django.shortcuts import render
@@ -8,6 +12,9 @@ from django.views.generic import TemplateView
 from .forms import MemberForm, MemberGenerateImageForm
 from .models import Member
 from mappings.models import Word
+
+import StringIO
+from django.core.files.uploadedfile import InMemoryUploadedFile
 
 
 class MemberAddView(TemplateView):
@@ -29,11 +36,14 @@ class MemberAddView(TemplateView):
 
     def post(self, request):
         form = self.form_class(request.POST, request.FILES)
-
-        if form.is_valid():
-            member_id = form.save()
+        #member_id = 'None'
+        if form.is_valid(): 
+            member = form.save()
+            member_id = member.id
             obj = Member.objects.get(id=member_id)
             obj.image.save('kid_images/'+str(member_id)+'.png', obj.image, save=True)
+        else:
+            raise forms.ValidationError('Please input required data in form')
         
 
         return render(
@@ -43,6 +53,7 @@ class MemberAddView(TemplateView):
                 'form': self.form_class(),
                 'member_id': member_id,
                 'root_url': request.get_host(),
+                'members': Member.objects.all()
             }
         )
 
@@ -198,11 +209,13 @@ class MemberGenerateImage(TemplateView):
 
     def post(self, request, member_id):
         form = self.form_class(request.POST, request.FILES)
-
         if form.is_valid():
             obj = Member.objects.get(pk=member_id)
             obj.image = form.cleaned_data['image']
             obj.save()
+        else:
+            if forms.ValidationError: 
+                raise forms.ValidationError(_('File size must be under 1 MB. Current file size is %s.') % (filesizeformat(request.FILES['image'].size)))
 
         return render(
             request,
