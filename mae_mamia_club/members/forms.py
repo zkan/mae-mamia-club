@@ -11,13 +11,6 @@ from django.contrib.admin.widgets import AdminDateWidget
 from django.template.defaultfilters import filesizeformat
 from django.utils.translation import ugettext_lazy as _
 
-
-class MemberForm(forms.ModelForm):
-    birthdate = forms.DateField(widget = SelectDateWidget(years=(2013, 2014)))
-
-    class Meta:
-        model = Member
-
 #credit http://chriskief.com/2013/10/19/limiting-upload-file-size-with-django-forms/
 class RestrictedImageField(forms.ImageField):
     def __init__(self, *args, **kwargs):
@@ -28,11 +21,28 @@ class RestrictedImageField(forms.ImageField):
         data = super(RestrictedImageField, self).clean(*args, **kwargs)
         try:
             if data.size > self.max_upload_size:
-                raise forms.ValidationError(_('File size must be under %s. Current file size is %s.') % (filesizeformat(self.max_upload_size), filesizeformat(data.size)))
+                self.error_messages = { 'file_size':_('File size must be under %s. Current file size is %s.') % (filesizeformat(self.max_upload_size), filesizeformat(data.size))}
+                
+                raise forms.ValidationError(
+                        self.error_messages['file_size'],
+                        code='file_size',)
+                
         except AttributeError:
             pass
  
         return data
+
+class MemberForm(forms.ModelForm):
+    birthdate = forms.DateField(widget = SelectDateWidget(years=(2013, 2014)))
+    image = RestrictedImageField(max_upload_size=1048576)
+    gender = forms.ChoiceField(
+        label='Gender',
+        choices=(('','-----------'),('g', 'girl'),('b', 'boy') ),
+        required=True,
+    )
+
+    class Meta:
+        model = Member
 
 class MemberGenerateImageForm(forms.Form):
 

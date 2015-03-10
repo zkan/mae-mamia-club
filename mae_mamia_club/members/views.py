@@ -1,5 +1,6 @@
 from PIL import Image, ImageDraw, ImageFont
 
+
 from django import forms
 from django.template.defaultfilters import filesizeformat
 from django.utils.translation import ugettext_lazy as _
@@ -36,15 +37,14 @@ class MemberAddView(TemplateView):
 
     def post(self, request):
         form = self.form_class(request.POST, request.FILES)
-        #member_id = 'None'
+        member_id = 1
         if form.is_valid(): 
             member = form.save()
             member_id = member.id
             obj = Member.objects.get(id=member_id)
             obj.image.save('kid_images/'+str(member_id)+'.png', obj.image, save=True)
         else:
-            raise forms.ValidationError('Please input required data in form')
-        
+            raise forms.ValidationError('Please input required data, correct image size or this data is already existed')
 
         return render(
             request,

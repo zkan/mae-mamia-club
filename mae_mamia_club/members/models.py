@@ -11,7 +11,7 @@ class Member(models.Model):
         megabyte_limit = 1.0
         if filesize > megabyte_limit*1024*1024:
             raise ValidationError("Max file size is %sMB" % str(megabyte_limit))
-            
+
     nickname = models.CharField(
         null=False,
         blank=False,
